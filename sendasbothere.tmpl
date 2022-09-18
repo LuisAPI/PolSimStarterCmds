@@ -1,6 +1,14 @@
+{{/*
+	Sends a message that comes from the YAGPDB bot in the same channel the CC is triggered in, and deletes your trigger.
+	Ready for use outside RTas/DF out-of-the-box.
+
+	Author: LastCelebration <https://twitter.com/LastCelebration>
+	Version: 2 (2022-09-18) / Changelog: Added comment.
+*/}}
+
 {{$smnecargs := parseArgs 0 "*Instructions:* Enclose the message you want the bot to send inside quotation mark symbols."
 (carg "string" "Unescaped message")
 }}
- 
+
 {{sendMessageNoEscape nil ($smnecargs.Get 0)}}
 {{deleteTrigger 1}}
