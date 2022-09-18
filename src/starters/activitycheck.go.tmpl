@@ -1,3 +1,14 @@
+{{/*
+	Creates an "activity check!" Discord embed card that pings the role named and allows readers to react with white_check_mark.
+	Ready for use outside RTas/DF out-of-the-box.
+
+	Author: "LastCelebration" <https://github.com/LuisAPI>
+	Version: 2 (2022-09-18)
+
+	Changelog: Added these comments.
+	To-do: Add delete trigger function.
+*/}}
+
 {{$comargs := parseArgs 0 "Type the name of a party role inside quotation marks."
 (carg "role" "The organization, most likely a party, that has its activity checked by you")
 }}
