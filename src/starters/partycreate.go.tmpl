@@ -1,0 +1,41 @@
+{{/*
+	Create a Discord embed showing a political party's details, and send it to a predefined channel.
+	"PCC" means "PartyCreate command".
+	For use outside RTas/DF, change configuration values.
+
+	Author: @LastCelebration#5807 <https://twitter.com/LastCelebration>
+	Contributors: @DerPascal99#5268
+	Version: 6 (2022-09-18)
+	Changelog: Moved static values (the channel ID for list of parties; the server details on footer) to dedicated config values area.
+*/}}
+
+{{/* Configuration values */}}
+{{$pccsendtochannel := 1012434546228203550}}
+{{$pccinfosourcename := "Danubian Federation"}}
+{{$pccinfosourceicon := "https://static.wikia.nocookie.net/althistory/images/2/2b/Habsburg_Coat_of_Arms_%28Otto%27s_Dream%29.png/revision/latest?cb=20210604214520"}}
+{{/* End of configuration values */}}
+
+{{$pcccargs := parseArgs 6 "List the following inside quotation marks: party name, color in decimal, logo, leader, alignment, policies"
+	(carg "string" "Name")
+	(carg "int" "Color")
+	(carg "string" "Logo")
+	(carg "string" "Leader")
+	(carg "string" "Alignment")
+	(carg "string" "Policies")
+}}
+{{sendMessage $pccsendtochannel (cembed
+	"title" ($pcccargs.Get 0)
+	"color" ($pcccargs.Get 1)
+	"fields" (cslice 
+		(sdict "name" "Leader(s)" "value" ($pcccargs.Get 3) "inline" false) 
+		(sdict "name" "Alignment" "value" ($pcccargs.Get 4) "inline" false)
+		(sdict "name" "Policies" "value" ($pcccargs.Get 5) "inline" false)
+	)
+	"thumbnail" (sdict "url" ($pcccargs.Get 2))
+	"footer" (sdict
+		"text" $pccinfosourcename
+		"icon_url" $pccinfosourceicon
+		)
+		"timestamp" .Message.Timestamp
+	)
+}}
