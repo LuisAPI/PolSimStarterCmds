@@ -1,0 +1,5 @@
+{{$comargs := parseArgs 0 "Type the name of a party role inside quotation marks."
+(carg "role" "The organization, most likely a party, that has its activity checked by you")
+}}
+{{$x := sendMessageNoEscapeRetID nil (complexMessage "content" (joinStr " " "**Activity check!**" ($comargs.Get 0).Mention) "embed" (cembed "title" "🤨 Activity Check" "color" 16501579 "description" "Do a ✅ reaction to this message. Your party may be disbanded if you fail to register enough active members."))}}
+{{addMessageReactions nil $x "✅"}}
