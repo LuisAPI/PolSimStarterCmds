@@ -1,0 +1,14 @@
+{{/*
+	Edit a message that can mention roles and users, and have the trigger delete itself after a second.
+	Author: MLastCelebration <https://github.com/MLastCelebration>
+	Version: 3 (2022-02-16)
+*/}}
+ 
+{{$emnecargs := parseArgs 2 "You only need two arguments: the ID of the original message, and the new contents of the message. Separate each argument with a space ( ___ ), not a line break (enter ↩)."
+ 
+(carg "int" "ID of the message to be edited")
+(carg "string" "Unescaped message")
+}}
+ 
+{{editMessageNoEscape nil ($emnecargs.Get 0) ($emnecargs.Get 1) }}
+{{deleteTrigger 1}}
