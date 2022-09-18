@@ -1,0 +1,6 @@
+{{$smnecargs := parseArgs 0 "*Instructions:* Enclose the message you want the bot to send inside quotation mark symbols."
+(carg "string" "Unescaped message")
+}}
+ 
+{{sendMessageNoEscape nil ($smnecargs.Get 0)}}
+{{deleteTrigger 1}}
