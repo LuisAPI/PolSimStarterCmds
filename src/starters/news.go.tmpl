@@ -1,0 +1,37 @@
+{{/*
+	Mention a certain role based on what Discord channel the message was sent in.
+	For use outside the Republic of Ischia, change configuration values.
+
+	Author: @LastCelebration#5807 <https://twitter.com/LastCelebration>
+	Version: 2 (2023-02-12)
+	Changelog: Started moving static values (the channel IDs for news channels; readers' roles) to dedicated config values area.
+*/}}
+
+{{/* Configuration values */}}
+{{$newsStaffChannel := 872871627434631259}}
+{{$newsStaffBotsChannel := 872872228570681435}}
+{{$newsStaffRole := 872872228570681435}}
+
+{{/* End of configuration values */}}
+
+{{ $mtinfo := parseArgs 0 "do -news and optionally give a headline in quotation marks"
+    (carg "string" "News headline")
+}}
+
+{{if eq .Channel.ID $newsStaffChannel}}
+{{sendMessageNoEscape nil (joinStr " " ($mtinfo.Get 0) ">You're in staff chat haha let me just ping the <@&872909000310677615>s for you")}}
+{{else if eq .Channel.ID $newsStaffBotsChannel}}
+{{sendMessageNoEscape nil (joinStr " " ($mtinfo.Get 0) ">You're in staff bots channel haha let me just ping the <@&872909000310677615>s for you")}}
+{{else if eq .Channel.ID 872871126936735744}}
+{{sendMessageNoEscape nil (joinStr " " ($mtinfo.Get 0) "*New staff announcement from" .User "for the <@&876117074873831455>!*")}}
+{{else if eq .Channel.ID 880508039218737202}}
+{{sendMessageNoEscape nil (joinStr " " ($mtinfo.Get 0) "*New Infowars article from" .User "for <@&880506763869315153>s!*")}}
+{{else if eq .Channel.ID 880821715456917554}}
+{{sendMessageNoEscape nil (joinStr " " ($mtinfo.Get 0) "*New The Ischia Post article from" .User "for <@&880821390092173312>s!*")}}
+{{else if eq .Channel.ID 880846830869565440}}
+{{sendMessageNoEscape nil (joinStr " " ($mtinfo.Get 0) "*New The Righteous Ischitan article from" .User "for <@&880846689211125833>s!*")}}
+{{else if eq .Channel.ID 882278959881019473}}
+{{sendMessageNoEscape nil (joinStr " " ($mtinfo.Get 0) "*New The Vanguard article from" .User "for <@&882279141746032671>s!*")}}
+{{else}}
+{{sendMessage nil "Not a valid media outlet channel. Please contact the staff if this is in error."}}
+{{end}}
